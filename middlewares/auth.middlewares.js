@@ -72,8 +72,27 @@ const protectAdmin = (req, res, next) => {
 	next();
 };
 
+const protectProductOwner = (req, res, next) => {
+	const { sessionUser, product } = req;
+	if (sessionUser.id !== product.userId) {
+		return next(new AppError("Sorry...this is not your product.", 403));
+	}
+	next();
+};
+
+const protectOrderOwner = catchAsync(async (req, res, next) => {
+	const { sessionUser, order } = req;
+	if (sessionUser.id !== order.userId) {
+		return next(new AppError("Sorry...this is not your order", 403));
+	}
+	next();
+});
+
 module.exports = {
 	protectSession,
 	protectUsersAccount,
 	protectAdmin,
+	protectProductOwner,
+	protectOrderOwner
+
 };

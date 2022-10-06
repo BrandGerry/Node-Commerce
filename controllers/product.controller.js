@@ -12,7 +12,7 @@ const { ProductImg } = require('../models/productImg.model')
 
 const createProduct = catchAsync(async (req, res, next) => {
 
-    const { title, description, quantity, categoryId, price, userId } = req.body
+    const { title, description, quantity, categoryId, price } = req.body
     const { sessionUser } = req
     //Automatizarlo ver en post
     const newProduct = await Product.create({
@@ -56,7 +56,7 @@ const getAllProducts = catchAsync(async (req, res, next) => {
 const getOneProduct = catchAsync(async (req, res, next) => {
 
     const { id } = req.params
-    const product = await Product.findAll({
+    const product = await Product.findOne({
         where: { id }
     })
     res.status(200).json({
@@ -87,7 +87,7 @@ const deleteProduct = catchAsync(async (req, res, next) => {
     const { product } = req
     await product.update({ status: 'deleted' })
     res.status(200).json({
-        status: 'Sucess'
+        status: 'Success'
     })
 
 })
