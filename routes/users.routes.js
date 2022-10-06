@@ -8,7 +8,7 @@ const {
 	getAllUserOrder,
 	getAllUserProducts,
 	getIdUserOrder,
-	login
+	login,
 } = require('../controllers/users.controller');
 
 // Middlewares
@@ -30,7 +30,6 @@ userRouter.delete('/:id', protectSession, userExists, protectUsersAccount, delet
 
 //With order
 userRouter.get('/orders', protectSession, getAllUserOrder)
-userRouter.get('/orders/:id', protectSession, orderExists, getIdUserOrder, getOnlyOrderByUser)
-
+userRouter.get('/orders/:id', protectSession, orderExists, getIdUserOrder)
 
 module.exports = { userRouter };
